@@ -1,0 +1,65 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "DEV",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/odoo/odoo-bin",
+            "args": [
+                "-c", "${workspaceFolder}/config/odoo.conf",
+                "--limit-time-real", "99999",
+                "--dev=all",
+            ],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/odoo/odoo-bin",
+                "OE_INTERNATIONAL": "False",
+                "LANG": "es_PE.UTF-8",
+                "LC_ALL": "es_PE.UTF-8",
+                "TZ": "America/Lima",
+                "ODOO_RC": "${workspaceFolder}/config/odoo.conf",
+            },
+            "stopOnEntry": false,
+            "cwd": "${workspaceFolder}",
+            "showReturnValue": true,
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "pythonArgs": [
+                "-X frozen_modules=off"
+            ]
+        },
+        {
+            "name": "Shell",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/odoo/odoo-bin",
+            "args": [
+                "shell",
+                "-c", "${workspaceFolder}/config/odoo.conf",
+                "-d", "",
+                "--xmlrpc-port", "8888",
+                "--gevent-port", "8899",
+                "--shell-interface", "ipython"
+            ],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/odoo/odoo-bin",
+                "OE_INTERNATIONAL": "False",
+                "LANG": "es_PE.UTF-8",
+                "LC_ALL": "es_PE.UTF-8",
+                "TZ": "America/Lima",
+                "ODOO_RC": "${workspaceFolder}/config/odoo.conf",
+            },
+            "stopOnEntry": false,
+            "cwd": "${workspaceFolder}",
+            "showReturnValue": true,
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "pythonArgs": [
+                "-X frozen_modules=off"
+            ]
+        }
+    ]
+}
