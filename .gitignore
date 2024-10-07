@@ -2,9 +2,10 @@
 _build/
 
 # dotfiles
-.*
+# .*
 !.gitignore
 !.mailmap
+.vscode/*
 !.vscode/launch.json.dev
 # compiled python files
 *.py[co]
