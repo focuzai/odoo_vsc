@@ -7,12 +7,13 @@ Entorno de desarrollo de Odoo Enterprise con IDE Visual Studio
 
 - [Odoo Enterprise \& IDE Visual Studio Code](#odoo-enterprise--ide-visual-studio-code)
 - [Contenido](#contenido)
+- [Guía de configuración rápida:](#guía-de-configuración-rápida)
+- [El archivo `.env`](#el-archivo-env)
+- [Preparar entorno](#preparar-entorno)
+- [Forma manual de preparar entorno de desarrollo](#forma-manual-de-preparar-entorno-de-desarrollo)
 - [Preparar entorno de desarrollo. Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04](#preparar-entorno-de-desarrollo-ubuntu-2004-ubuntu-2204-ubuntu-2404)
   - [Instalación de requisitos en maquina local](#instalación-de-requisitos-en-maquina-local)
-    - [Instalación de PostgreSQL](#instalación-de-postgresql)
-    - [Opcional instalar PostgreSQL completo:](#opcional-instalar-postgresql-completo)
-    - [Instalación de dependencias:](#instalación-de-dependencias)
-  - [Clonar el repositorio con sub proyectos](#clonar-el-repositorio-con-sub-proyectos)
+  - [Clonar el repositorios de Odoo](#clonar-el-repositorios-de-odoo)
   - [Crear un entorno virtual](#crear-un-entorno-virtual)
     - [Instalar las dependencias de Odoo](#instalar-las-dependencias-de-odoo)
 - [Gestión de submódulos (sub-proyecto o sub-repositorio)](#gestión-de-submódulos-sub-proyecto-o-sub-repositorio)
@@ -60,45 +61,76 @@ Entorno de desarrollo de Odoo Enterprise con IDE Visual Studio
 - [Fuentes](#fuentes)
 - [Contribuciones](#contribuciones)
 
+# Guía de configuración rápida:
+**Clonar y configurar:**
+```
+git clone git@github.com:focuzai/odoo_vsc.git
+cd odoo_vsc
+cp .env.example .env
+```
+# El archivo `.env`
+Las variables de entorno ubicado en `.env` proporcionan configuraciones dinámicas a Odoo y al proyecto en general.
+
+Archivo de muestra `.env`
+```
+# Odoo
+ODOO_TAG=16.0
+
+# Usuario de GitHub y token de acceso para clonar repositorios privados
+GITHUB_USER=Hchumpitaz
+GITHUB_ACCESS_TOKEN=ghp_token
+```
+# Preparar entorno
+Ejecutar el archivo `setup_env.sh` para preparar el entorno de desarrollo local. Instalador preparado para Ubuntu 20.04, Ubuntu 22.04 y Ubuntu 24.04.
+```
+chmod +x setup_env.sh
+./setup_env.sh
+```
+
+# Forma manual de preparar entorno de desarrollo
 # Preparar entorno de desarrollo. Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04
 ## Instalación de requisitos en maquina local
-### Instalación de PostgreSQL
-
-    sudo apt-get update
-    sudo apt-get upgrade -y
-    sudo apt-get install gnupg gnupg2 gnupg1 -y
-    sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-    sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /usr/share/keyrings/postgresql.gpg
-    echo "deb [signed-by=/usr/share/keyrings/postgresql.gpg] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
-    sudo apt-get update
-    sudo apt-get install --no-install-recommends -y postgresql-client
-
-### Opcional instalar PostgreSQL completo:
+**Instalación de PostgreSQL**
+```
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install gnupg gnupg2 gnupg1 -y
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /usr/share/keyrings/postgresql.gpg
+echo "deb [signed-by=/usr/share/keyrings/postgresql.gpg] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+sudo apt-get update
+sudo apt-get install --no-install-recommends -y postgresql-client
+```
+**Opcional instalar PostgreSQL completo:**
 
     sudo apt-get install postgresql-16 -y
 
-### Instalación de dependencias:
+**Instalación de dependencias:**
 
 Odoo
-
-    sudo apt-get install -y python3 python3-pip -y
-    sudo apt-get install -y git build-essential libsasl2-dev python3-cffi python3-dev python3-venv python3-wheel libldap2-dev libssl-dev libpq-dev
+```
+sudo apt-get install -y python3 python3-pip -y
+sudo apt-get install -y git build-essential libsasl2-dev python3-cffi python3-dev python3-venv python3-wheel libldap2-dev libssl-dev libpq-dev
+```
 
 Rafnixg
-
-    sudo apt install python3-dev python3-pip python3-venv libxml2-dev \
-        libxslt1-dev libldap2-dev libsasl2-dev libtiff5-dev \
-        libjpeg8-dev libopenjp2-7-dev zlib1g-dev libfreetype6-dev \
-        liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev libpq-dev libssl-dev
+```
+sudo apt install python3-dev python3-pip python3-venv libxml2-dev \
+    libxslt1-dev libldap2-dev libsasl2-dev libtiff5-dev \
+    libjpeg8-dev libopenjp2-7-dev zlib1g-dev libfreetype6-dev \
+    liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev libpq-dev libssl-dev
+```
 
 Yenthe666
+```
+sudo apt-get install python3 python3-pip -y
+sudo apt-get install git python3-cffi build-essential wget python3-dev python3-venv python3-wheel libxslt-dev libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less libpng-dev libjpeg-dev gdebi -y
+```
+## Clonar el repositorios de Odoo
 
-    sudo apt-get install python3 python3-pip -y
-    sudo apt-get install git python3-cffi build-essential wget python3-dev python3-venv python3-wheel libxslt-dev libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less libpng-dev libjpeg-dev gdebi -y
+Configurar las varibles de entorno
 
-## Clonar el repositorio con sub proyectos
-
-Para clonar el repositorio y los submódulos:
+Para clonar el repositorio de Odoo Community, Odoo Enterprise y Themes:
 
     chmod +x clone-addons.sh
     ./clone-addons.sh
