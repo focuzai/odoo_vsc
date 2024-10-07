@@ -150,11 +150,31 @@ Para desactivar el entorno virtual:
 ### Instalar las dependencias de Odoo
 Para instalar las dependencias de python para Odoo, ejecute los siguientes comandos:
 
-    source env/bin/activate
-    pip3 install --upgrade pip setuptools wheel --no-cache-dir
-    pip3 install -r odoo/requirements.txt --no-cache-dir
-    pip3 install -r requirements.txt --no-cache-dir
-    deactivate
+Activar entorno virtual:
+```
+source env/bin/activate
+```   
+
+Actualiza las librerias pip, setuptools y wheel:
+```
+pip3 install --upgrade pip setuptools wheel --no-cache-dir
+```
+
+Instalar las librerias de Odoo:
+```
+pip3 install -r odoo/requirements.txt --no-cache-dir
+```
+
+Instalas las librerias para la localización peruana:
+```
+pip3 install -r requirements.txt --no-cache-dir
+```
+
+Para salir del entorno virtual ejecuta
+```
+deactivate
+```
+
 
 Estos comandos activarán el entorno virtual de Odoo, instalarán las dependencias necesarias y desactivarán el entorno virtual.
 
