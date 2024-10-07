@@ -1,0 +1,78 @@
+# sphinx build directories
+_build/
+
+# dotfiles
+.*
+!.gitignore
+!.mailmap
+!.vscode/launch.json.dev
+# compiled python files
+*.py[co]
+__pycache__/
+# setup.py egg_info
+*.egg-info
+# emacs backup files
+*~
+# hg stuff
+*.orig
+status
+# odoo filestore
+odoo/filestore
+
+# window installation config file
+config/*
+!config/odoo.conf.dev
+# projects
+vendor/*
+!vendor/.gitkeep
+src/*
+!src/.gitkeep
+
+# js tooling
+node_modules
+jsconfig.json
+tsconfig.json
+package-lock.json
+package.json
+.husky
+
+# Distribution / packaging
+/odoo/
+/design-themes/
+/enterprise/
+env/
+env-*/
+venv/
+venv-*/
+.Python
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+*.eggs
+.env
+
+#PyDev
+.project
+.pydevproject
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+coverage.lcov
+
+# static Lib
+!static/lib/
