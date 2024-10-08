@@ -110,7 +110,7 @@ sudo apt-get install --no-install-recommends -y postgresql-client
 Odoo
 ```
 sudo apt-get install -y python3 python3-pip -y
-sudo apt-get install -y git build-essential libsasl2-dev python3-cffi python3-dev python3-venv python3-wheel libldap2-dev libssl-dev libpq-dev
+sudo apt-get install -y git build-essential libsasl2-dev python3-cffi python3-dev python3-venv python3-wheel libldap2-dev libssl-dev libpq-dev libxml2-dev
 ```
 
 Rafnixg
@@ -170,7 +170,7 @@ Instalas las librerias para la localización peruana:
 pip3 install -r requirements.txt --no-cache-dir
 ```
 
-Para salir del entorno virtual ejecuta
+Para salir del entorno virtual ejecuta: Solo si deseas cambiar de entorno virtual.
 ```
 deactivate
 ```
