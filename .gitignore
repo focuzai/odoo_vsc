@@ -3,6 +3,7 @@ _build/
 
 # dotfiles
 # .*
+.idea
 !.gitignore
 !.mailmap
 .vscode/*
