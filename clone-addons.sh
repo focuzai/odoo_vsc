@@ -2,6 +2,8 @@
 source .env
 set -e
 
+LOG_FILE=$(pwd)/clone.log
+
 # Function to construct the clone command
 construct_clone_command() {
     local repo_type=$1
