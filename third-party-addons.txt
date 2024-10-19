@@ -1,5 +1,11 @@
 # This file is read by clone-addons.sh
 
+# Odoo addons
+public https://github.com/odoo/odoo true
+
+# Themes addons
+themes https://github.com/odoo/design-themes true
+
 # Enterprise addons
 enterprise https://github.com/focuzai/odoo-enterprise true
 
@@ -14,8 +20,5 @@ enterprise https://github.com/focuzai/odoo-enterprise true
 # <public|private> <repo_url> <module1> <true|false> <module2> <true|false> ...
 
 # Public repositories
-public https://github.com/odoo/odoo false
-public https://github.com/odoo/design-themes false
 
 # Private repositories
-# private https://github.com/odoo/odoo true
