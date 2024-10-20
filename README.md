@@ -1,18 +1,16 @@
-# Odoo Enterprise & IDE Visual Studio Code
+<h1>Odoo Enterprise & IDE Visual Studio Code</h1>
 Entorno de desarrollo de Odoo Enterprise con IDE Visual Studio
 
 ![Odoo Enterprise & Visual Studio Code](https://i.ytimg.com/vi/N1KjLdbv7kA/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLATEFBlsHpR1dYaHMiHvTApC3E4Qg)
 
-# Contenido
+<h1>Contenido</h1>
 
-- [Odoo Enterprise \& IDE Visual Studio Code](#odoo-enterprise--ide-visual-studio-code)
-- [Contenido](#contenido)
 - [Guía de configuración rápida:](#guía-de-configuración-rápida)
 - [El archivo `.env`](#el-archivo-env)
-- [Preparar entorno](#preparar-entorno)
-- [Forma manual de preparar entorno de desarrollo](#forma-manual-de-preparar-entorno-de-desarrollo)
-- [Preparar entorno de desarrollo. Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04](#preparar-entorno-de-desarrollo-ubuntu-2004-ubuntu-2204-ubuntu-2404)
-  - [Instalación de requisitos en maquina local](#instalación-de-requisitos-en-maquina-local)
+- [Preparar entorno de desarrollo](#preparar-entorno-de-desarrollo)
+  - [Script para preparar entorno de desarrollo automaticamente](#script-para-preparar-entorno-de-desarrollo-automaticamente)
+  - [Forma manual para preparar entorno de desarrollo](#forma-manual-para-preparar-entorno-de-desarrollo)
+    - [Instalación de requisitos en maquina local](#instalación-de-requisitos-en-maquina-local)
   - [Clonar el repositorios de Odoo](#clonar-el-repositorios-de-odoo)
   - [Crear un entorno virtual](#crear-un-entorno-virtual)
     - [Instalar las dependencias de Odoo](#instalar-las-dependencias-de-odoo)
@@ -57,7 +55,6 @@ Entorno de desarrollo de Odoo Enterprise con IDE Visual Studio
   - [Shell para usar IPython como REPL](#shell-para-usar-ipython-como-repl)
 - [Errores comunes](#errores-comunes)
   - [OSError: \[Errno 24\] inotify instance limit reached](#oserror-errno-24-inotify-instance-limit-reached)
-  - [psycopg2.InterfaceError: connection already closed](#psycopg2interfaceerror-connection-already-closed)
 - [Fuentes](#fuentes)
 - [Contribuciones](#contribuciones)
 
@@ -80,16 +77,21 @@ ODOO_TAG=16.0
 GITHUB_USER=Hchumpitaz
 GITHUB_ACCESS_TOKEN=ghp_token
 ```
-# Preparar entorno
+# Preparar entorno de desarrollo
 Ejecutar el archivo `setup_env.sh` para preparar el entorno de desarrollo local. Instalador preparado para Ubuntu 20.04, Ubuntu 22.04 y Ubuntu 24.04.
+
+## Script para preparar entorno de desarrollo automaticamente
+
 ```
 chmod +x setup_env.sh
 ./setup_env.sh
 ```
 
-# Forma manual de preparar entorno de desarrollo
-# Preparar entorno de desarrollo. Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04
-## Instalación de requisitos en maquina local
+## Forma manual para preparar entorno de desarrollo
+
+**Si ha ejecutado el script `setup_env.sh` ir a [Clonar el repositorios de Odoo](#clonar-el-repositorios-de-odoo)**
+
+### Instalación de requisitos en maquina local
 **Instalación de PostgreSQL**
 ```
 sudo apt-get update
@@ -454,31 +456,10 @@ Ahora que IPython está instalado, ejecutar:
 
 # Errores comunes
 ## OSError: [Errno 24] inotify instance limit reached
-
-    sudo nano /etc/sysctl.conf
-    fs.inotify.max_user_instances = 1100000
-    sudo sysctl -p
-
-## psycopg2.InterfaceError: connection already closed
-
-Abrir el archivo python `odoo/odoo/service/server.py`:
-
-Comentar las lineas:
-```python
-select.select([pg_conn], [], [], SLEEP_INTERVAL + number)
-time.sleep(number / 100)
-pg_conn.poll()
-```
-Y agregar lo siguiente para solo mostrar un logger de error y evitar que el debug se detenga.
-
-```python
-try:
-    select.select([pg_conn], [], [], SLEEP_INTERVAL + number)
-    time.sleep(number / 100)
-    pg_conn.poll()
-except Exception as e:
-    _logger.error("Error en la conexión a la base de datos: %s", e)
-    pass
+```script
+sudo nano /etc/sysctl.conf
+fs.inotify.max_user_instances = 1100000
+sudo sysctl -p
 ```
 
 # Fuentes
@@ -495,39 +476,3 @@ except Exception as e:
 # Contribuciones
 
 - [Harrison Chumpitaz](mailto:hchumpitaz92@gmail.com)
-
-```docker
-version: '3.1'
-services:
-  web:
-    image: focuz/odoo_enterprise:16.0
-    depends_on:
-      - db
-    ports:
-      - "8069:8069"
-    volumes:
-      - odoo-web-data:/var/lib/odoo
-      - ./config:/etc/odoo
-      - ./addons:/mnt/extra-addons
-    environment:
-      - PASSWORD_FILE=/run/secrets/postgresql_password
-    secrets:
-      - postgresql_password
-  db:
-    image: postgres:14
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_PASSWORD_FILE=/run/secrets/postgresql_password
-      - POSTGRES_USER=odoo
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    volumes:
-      - odoo-db-data:/var/lib/postgresql/data/pgdata
-    secrets:
-      - postgresql_password
-volumes:
-  odoo-web-data:
-  odoo-db-data:
-secrets:
-  postgresql_password:
-    file: odoo_pg_pass
-```
