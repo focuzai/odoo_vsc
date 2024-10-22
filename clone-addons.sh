@@ -11,7 +11,7 @@ construct_clone_command() {
     case $repo_type in
         private) echo "git clone https://${GITHUB_USER}:${GITHUB_ACCESS_TOKEN}@${repo_url#https://}" ;;
         enterprise) echo "git clone https://${ENTERPRISE_USER}:${ENTERPRISE_ACCESS_TOKEN}@${repo_url#https://} ${ENTERPRISE_ADDONS}" ;;
-        themes) echo "git clone $repo_url" ${THEMES_ADDONS};;
+        themes) echo "git clone $repo_url ${THEMES_ADDONS}" ;;
         public) echo "git clone $repo_url" ;;
     esac
 }
