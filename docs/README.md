@@ -35,6 +35,13 @@
       - [Fetch desde un remoto específico:](#fetch-desde-un-remoto-específico)
       - [Pull desde un remoto específico:](#pull-desde-un-remoto-específico)
   - [¿Cómo cambiar de rama predeterminada o rama de seguimiento?](#cómo-cambiar-de-rama-predeterminada-o-rama-de-seguimiento)
+- [Cómo usar Fail2ban para prevenir accesos no deseados al servidor](#cómo-usar-fail2ban-para-prevenir-accesos-no-deseados-al-servidor)
+  - [Qué es Fail2ban](#qué-es-fail2ban)
+  - [Cómo instalar Fail2ban](#cómo-instalar-fail2ban)
+  - [Cómo configurar Fail2ban](#cómo-configurar-fail2ban)
+  - [Configuraciones personalizadas para cada servicio](#configuraciones-personalizadas-para-cada-servicio)
+  - [Cómo comprobar el estado de Fail2ban](#cómo-comprobar-el-estado-de-fail2ban)
+- [Fuentes](#fuentes)
 
 
 # Gestión de submódulos (sub-proyecto o sub-repositorio)
@@ -271,3 +278,68 @@ Supongamos que estás actualmente en la rama local "mi_rama_actual" y quieres es
     git branch -u origin/nueva_rama_remota
 
 Recuerda que en Git, la rama predeterminada para el push y pull se basa en la rama de seguimiento, por lo que establecer la rama de seguimiento es útil para simplificar comandos futuros.
+
+# Cómo usar Fail2ban para prevenir accesos no deseados al servidor
+
+## Qué es Fail2ban
+Fail2ban es una aplicación de Linux que permite evitar accesos no autorizados a tu servidor. ¿Y cómo funciona? Se encarga de bloquear (o banear) las direcciones IP que realicen varios intentos de acceso incorrectos al servidor. Y se trata de una estrategia ideal de seguridad a tener en cuenta tras contratar un Servidor Cloud.
+
+## Cómo instalar Fail2ban
+
+```bash
+sudo apt-get install fail2ban
+```
+
+## Cómo configurar Fail2ban
+La configuración de Fail2ban se encuentra en la carpeta «/etc/fail2ban/«. Allí encontraremos un archivo llamado «jail.conf» con las configuraciones del sistema. Para encontrar más información, podemos abrir ese archivo con nuestro editor preferido.
+
+```bash
+sudo nano jail.conf
+```
+
+En la sección «[DEFAULT]» encontramos la configuración global de las opciones. Allí veremos diversas variables que definir como las siguientes:
+
+- **bantime:** es el tiempo que una IP será baneada, expresado en segundos.
+- **maxretry:** es el número máximo de reintentos de login que podrán realizarse antes de que la IP sea baneada.
+- **ignoreip:** una lista de IPs separadas por espacios que serían ignoradas por fail2ban.
+
+## Configuraciones personalizadas para cada servicio
+
+Cada una de las protecciones se expresa en una «jaula». Podemos tener varias «jaulas» para cada tipo de servicio administrado por Fail2ban. Ahora, si deseamos hacer cambios en la configuración predeterminada, lo recomendable es crear un archivo llamado `jail.local`.
+
+```bash
+sudo nano jail.local
+```
+
+Podemos crear una configuración SSH entrante de esta manera:
+```bash
+[sshd]
+maxretry = 5
+bantime=10800
+```
+_Nota: «sshd» es el demonio de conexión SSH, que permite que otros usuarios se conecten con nuestro servidor._
+
+Para que estos cambios tengan efecto, tenemos que **reiniciar el servicio**. El comando puede depender de la distribución con la que estemos trabajando, pero en Ubuntu sería algo como esto:
+
+```bash
+sudo systemctl restart fail2ban.service
+```
+
+## Cómo comprobar el estado de Fail2ban
+
+Podemos comprobar el estado de Fail2ban con el siguiente comando.
+
+```bash
+fail2ban-client status
+```
+
+Nos arrojará una lista de las jaulas que tenemos configuradas. Luego, podríamos visualizar información detallada de cada jaula con el comando:
+
+```bash
+fail2ban-client status sshd
+```
+
+
+# Fuentes
+- [Cómo usar Fail2ban para prevenir accesos no deseados al servidor](https://www.arsys.es/blog/instalar-fail2ban)
+- [Seguridad en Odoo](https://www.odoo.com/documentation/16.0/administration/on_premise/deploy.html#security)
