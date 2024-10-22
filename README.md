@@ -208,6 +208,7 @@ Por favor, consulte la [sección de documentos](https://github.com/focuzai/odoo_
 - [Creando un entorno de desarrollo para Odoo 14.0 con VSCode en Ubuntu 22.04](https://blog.rafnixg.dev/creando-un-entorno-de-desarrollo-para-odoo-140-con-vscode-en-ubuntu-2204)
 - [Explorando Odoo a fondo: Cómo trabajar con la shell de la CLI y configurar IPython como REPL](https://blog.rafnixg.dev/explorando-odoo-a-fondo-como-trabajar-con-la-shell-de-la-cli-y-configurar-ipython-como-repl)
 - [Archivo de configuración odoo.conf](https://wiki.nuxpy.com/index.php/Archivo_de_configuraci%C3%B3n_odoo.conf)
+- [How to Install NVM on Ubuntu 22.04](https://www.geeksforgeeks.org/how-to-install-nvm-on-ubuntu-22-04/)
 
 # Contribuciones
 
