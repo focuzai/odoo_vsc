@@ -39,9 +39,9 @@ package.json
 .husky
 
 # Distribution / packaging
-# /odoo/
-# /design-themes/
-# /enterprise/
+# odoo/
+# themes/
+# enterprise/
 env/
 env-*/
 venv/
