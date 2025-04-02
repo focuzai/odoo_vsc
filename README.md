@@ -109,23 +109,24 @@ chmod +x clone-addons.sh
 
 Para crear un entorno virtual de Python para Odoo (>= python3.8), ejecute el siguiente comando:
 ```bash
-python3 -m venv env
+python3 -m venv venv
 ```
-Este comando creará un entorno virtual para Odoo en la carpeta `env`, puede configurar de este modo `env-16`, el número 16 hace referencia a la versión de odoo utilizado.
+Este comando creará un entorno virtual para Odoo en la carpeta `venv`, puede configurar de este modo `venv-16`, el número 16 hace referencia a la versión de odoo utilizado.
 
 ### Instalar las dependencias de Odoo
 Para instalar las dependencias de python para Odoo, ejecute los siguientes comandos:
 
-Activar entorno virtual `env` o el que allá creado, por ejemplo, el mostrado arriba `env-16`.
+Activar entorno virtual `venv` o el que allá creado, por ejemplo, el mostrado arriba `env-16`.
 
 ```bash
-source env/bin/activate
+source venv/bin/activate
 ```
 
 Actualiza las librerias pip, setuptools y wheel:
 
 ```bash
 pip3 install --upgrade pip setuptools wheel --no-cache-dir
+pip3 install pydevd-odoo nox
 ```
 
 Instalar las librerias de Odoo:
@@ -184,7 +185,14 @@ Ahora que IPython está instalado, ejecutar:
 ```bash
 odoo/odoo-bin shell -c config/odoo.conf -d <db-name> --xmlrpc-port 8888 --gevent-port 8899 --shell-interface ipython
 ```
-
+## Modos de desarrollo
+El parámetro ``--dev`` en Odoo se utiliza para habilitar diferentes modos de desarrollo que facilitan la depuración y el desarrollo de módulos. Algunos de los valores comunes que puede tomar son:
+- all: Activa todas las opciones de desarrollo.
+- assets: Habilita la depuración de archivos estáticos como CSS y JavaScript.
+- qweb: Permite la depuración de plantillas QWeb.
+- xml: Activa la depuración de vistas XML.
+- rpc: Muestra las llamadas RPC (Remote Procedure Call) en la consola.
+- pdb: Inicia un depurador interactivo (Python Debugger) en caso de errores.
 # Errores comunes
 ## OSError: [Errno 24] inotify instance limit reached
 
